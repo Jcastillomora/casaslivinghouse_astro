@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "Alexander Sáez",
+    "cargo": "Gerente General",
+    "foto": "/assets/foto_equipo1.jpeg",
+    "descripcion": "Más de 15 años liderando proyectos de construcción en el centro-sur de Chile."
+  },
+  {
+    "nombre": "Juan Carlos García",
+    "cargo": "Director Técnico",
+    "foto": "/assets/foto_equipo2.jpeg",
+    "descripcion": "Arquitecto especializado en viviendas prefabricadas y construcción industrializada."
+  }
+]

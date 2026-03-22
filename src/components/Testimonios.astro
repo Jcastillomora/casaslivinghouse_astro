@@ -1,0 +1,55 @@
+---
+const videos = [
+  { src: '/assets/video_testimonio1.mp4', nombre: 'Cliente Temuco',    modelo: 'Lago Ranco 54' },
+  { src: '/assets/video_testimonio2.mp4', nombre: 'Cliente Osorno',    modelo: '7 Lagos 108' },
+  { src: '/assets/video_testimonio3.mp4', nombre: 'Cliente Valdivia',  modelo: 'Puerto Varas 80' },
+  { src: '/assets/video_testimonio4.mp4', nombre: 'Cliente Villarrica', modelo: 'Volcán Osorno 124' },
+]
+---
+
+<section id="testimonios" class="py-24 bg-stone-50">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-14">
+      <span class="text-brand-500 text-sm font-semibold tracking-widest uppercase">Testimonios</span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-stone-800 mt-2 mb-4">
+        Lo que dicen nuestros clientes
+      </h2>
+      <p class="text-stone-500 text-lg max-w-xl mx-auto">
+        Familias reales, hogares reales. Conoce sus experiencias.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {videos.map(v => (
+        <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+          <!-- Video -->
+          <div class="relative aspect-[9/16] bg-stone-100 overflow-hidden">
+            <video
+              class="w-full h-full object-cover"
+              src={v.src}
+              preload="none"
+              controls
+              playsinline
+              poster=""
+            />
+            <!-- Overlay play hint -->
+            <div class="absolute inset-0 bg-stone-900/20 flex items-center justify-center opacity-100 group-hover:opacity-0 transition-opacity pointer-events-none">
+              <div class="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                <svg class="w-6 h-6 text-brand-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Info -->
+          <div class="p-4">
+            <div class="font-semibold text-stone-800 text-sm">{v.nombre}</div>
+            <div class="text-brand-500 text-xs font-medium">{v.modelo}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

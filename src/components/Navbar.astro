@@ -1,0 +1,108 @@
+---
+const links = [
+  { href: '#catalogo', label: 'Catálogo' },
+  { href: '#como-comprar', label: 'Cómo comprar' },
+  { href: '#quienes-somos', label: 'Nosotros' },
+  { href: '#contacto', label: 'Contacto' },
+]
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+>
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-brand-400 transition-colors">
+        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+      </div>
+      <span class="font-display font-bold text-lg text-white drop-shadow-sm">
+        Living House
+      </span>
+    </a>
+
+    <!-- Nav desktop -->
+    <nav class="hidden md:flex items-center gap-1">
+      {links.map(l => (
+        <a
+          href={l.href}
+          class="px-4 py-2 rounded-lg text-sm font-medium text-white/90 hover:text-white hover:bg-white/15 transition-all"
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href="https://wa.me/56930754516"
+        target="_blank"
+        rel="noopener"
+        class="ml-3 px-5 py-2.5 bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold rounded-lg shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5"
+      >
+        Cotizar ahora
+      </a>
+    </nav>
+
+    <!-- Hamburger mobile -->
+    <button
+      id="menu-btn"
+      class="md:hidden p-2 rounded-lg text-white hover:bg-white/15 transition-colors"
+      aria-label="Menú"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-stone-900/95 backdrop-blur-md border-t border-white/10"
+  >
+    <nav class="flex flex-col px-6 py-4 gap-1">
+      {links.map(l => (
+        <a
+          href={l.href}
+          class="mobile-link px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium transition-all"
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href="https://wa.me/56930754516"
+        target="_blank"
+        rel="noopener"
+        class="mt-2 px-5 py-3 bg-brand-500 text-white text-sm font-semibold rounded-lg text-center"
+      >
+        Cotizar por WhatsApp
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const navbar  = document.getElementById('navbar')!
+  const menuBtn = document.getElementById('menu-btn')!
+  const mobileMenu = document.getElementById('mobile-menu')!
+
+  // Scroll: fondo sólido al bajar
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('bg-stone-900/95', 'backdrop-blur-md', 'shadow-lg')
+    } else {
+      navbar.classList.remove('bg-stone-900/95', 'backdrop-blur-md', 'shadow-lg')
+    }
+  })
+
+  // Mobile toggle
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden')
+  })
+
+  // Cerrar al hacer click en link
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.add('hidden'))
+  })
+</script>

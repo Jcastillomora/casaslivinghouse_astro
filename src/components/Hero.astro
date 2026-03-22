@@ -1,0 +1,127 @@
+---
+const slides = [
+  { img: '/assets/foto_carousel1.jpg', label: 'Construimos tu hogar' },
+  { img: '/assets/foto_carousel2.jpg', label: 'Calidad prefabricada' },
+  { img: '/assets/foto_carousel3.jpg', label: 'Sur de Chile' },
+  { img: '/assets/foto_carousel4.jpg', label: 'Tu familia merece lo mejor' },
+]
+---
+
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+
+  <!-- Carousel de fondo -->
+  <div id="carousel" class="absolute inset-0 z-0">
+    {slides.map((s, i) => (
+      <div
+        class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+        data-index={i}
+      >
+        <img
+          src={s.img}
+          alt={s.label}
+          class="w-full h-full object-cover"
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-stone-900/80 via-stone-900/50 to-transparent" />
+      </div>
+    ))}
+  </div>
+
+  <!-- Contenido -->
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-32">
+    <div class="max-w-2xl">
+
+      <div class="inline-flex items-center gap-2 bg-brand-500/20 border border-brand-400/40 rounded-full px-4 py-1.5 mb-6 animate-fade-in">
+        <div class="w-2 h-2 bg-brand-400 rounded-full" />
+        <span class="text-brand-300 text-sm font-medium">Centro Sur de Chile</span>
+      </div>
+
+      <h1 class="font-display text-5xl md:text-7xl font-bold text-white leading-tight mb-6 animate-fade-up" style="animation-delay: 0.1s">
+        Tu hogar<br/>
+        <span class="text-brand-400">prefabricado</span><br/>
+        de calidad
+      </h1>
+
+      <p class="text-stone-300 text-lg md:text-xl leading-relaxed mb-10 animate-fade-up" style="animation-delay: 0.2s">
+        Diseñamos y construimos viviendas prefabricadas adaptadas al clima
+        y geografía del sur de Chile. Calidad, rapidez y precio justo.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 animate-fade-up" style="animation-delay: 0.3s">
+        <a
+          href="#catalogo"
+          class="px-8 py-4 bg-brand-500 hover:bg-brand-400 text-white font-semibold rounded-xl shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl text-center"
+        >
+          Ver catálogo
+        </a>
+        <a
+          href="https://wa.me/56930754516"
+          target="_blank"
+          rel="noopener"
+          class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl transition-all text-center flex items-center justify-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.554 4.12 1.525 5.855L.057 23.882l6.174-1.618A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.213-3.664.961.977-3.563-.234-.376A9.818 9.818 0 1112 21.818z"/>
+          </svg>
+          Cotizar por WhatsApp
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="flex gap-8 mt-14 animate-fade-up" style="animation-delay: 0.4s">
+        {[
+          { num: '+200', label: 'Casas entregadas' },
+          { num: '12',   label: 'Modelos disponibles' },
+          { num: '15+',  label: 'Años de experiencia' },
+        ].map(s => (
+          <div>
+            <div class="text-2xl font-display font-bold text-white">{s.num}</div>
+            <div class="text-stone-400 text-sm">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Dots del carousel -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+    {slides.map((_, i) => (
+      <button
+        class={`carousel-dot w-2 h-2 rounded-full transition-all ${i === 0 ? 'bg-brand-400 w-6' : 'bg-white/40'}`}
+        data-dot={i}
+        aria-label={`Slide ${i + 1}`}
+      />
+    ))}
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>('.carousel-slide')
+  const dots   = document.querySelectorAll<HTMLButtonElement>('.carousel-dot')
+  let current  = 0
+  let timer: ReturnType<typeof setInterval>
+
+  function goTo(idx: number) {
+    slides[current].classList.replace('opacity-100', 'opacity-0')
+    dots[current].classList.remove('bg-brand-400', 'w-6')
+    dots[current].classList.add('bg-white/40')
+
+    current = idx
+    slides[current].classList.replace('opacity-0', 'opacity-100')
+    dots[current].classList.add('bg-brand-400', 'w-6')
+    dots[current].classList.remove('bg-white/40')
+  }
+
+  function next() { goTo((current + 1) % slides.length) }
+
+  timer = setInterval(next, 5000)
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      clearInterval(timer)
+      goTo(Number(dot.dataset.dot))
+      timer = setInterval(next, 5000)
+    })
+  })
+</script>
