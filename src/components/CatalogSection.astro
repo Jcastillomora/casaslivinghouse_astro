@@ -1,0 +1,189 @@
+---
+import type { Casa } from '../lib/casas';
+
+interface Props {
+  casas: Casa[];
+}
+
+const { casas } = Astro.props;
+const totalCasas = casas.length;
+const casasJson = JSON.stringify(casas);
+---
+
+<!-- Catálogo con filtro — replica exacta de casas_page() en Casaslivinghouse.py -->
+<!-- El filtrado usa Alpine.js (equivalente al State.filtered_casas en Reflex) -->
+<div
+  class="w-full bg-slate-50 min-h-screen"
+  x-data={`catalogState(${casasJson})`}
+>
+  <!-- Encabezado de sección -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+    <div class="flex flex-col gap-3 items-start mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-1 h-8 bg-teal-500 rounded-full"></div>
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-800">
+          Catálogo de Casas Prefabricadas
+        </h2>
+      </div>
+      <p class="text-slate-500 text-sm md:text-base">
+        Descubre nuestros {totalCasas} modelos disponibles con financiamiento directo
+      </p>
+    </div>
+  </div>
+
+  <!-- Barra de filtros -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 px-4 sm:px-5 py-3 w-full max-w-2xl mx-auto flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+      <!-- Búsqueda -->
+      <div class="flex items-center gap-2 flex-1 min-w-0">
+        <!-- Search icon (SVG inline para Alpine) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input
+          x-model="search"
+          type="text"
+          placeholder="Buscar por modelo o descripción..."
+          class="border-none outline-none bg-transparent text-slate-700 placeholder-slate-500 flex-1 min-w-0 text-sm py-1"
+          style="font-family:inherit;"
+        />
+      </div>
+      <!-- Resultados + Limpiar -->
+      <div class="flex items-center gap-2 sm:border-l sm:border-slate-200 sm:pl-3">
+        <span class="text-xs text-slate-400 whitespace-nowrap font-medium flex-1 sm:flex-none" x-text="filteredCount + ' resultados'"></span>
+        <button
+          @click="resetFilters()"
+          class="flex items-center gap-1 text-xs text-slate-500 hover:text-red-500 transition-colors rounded-lg px-2 py-1 bg-transparent border-0 cursor-pointer"
+        >
+          <!-- X icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          Limpiar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div x-show="filteredCount === 0" class="flex flex-col items-center gap-4 py-20 px-8 w-full">
+    <!-- Search-X icon -->
+    <div class="p-5 bg-slate-100 rounded-full">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+      </svg>
+    </div>
+    <h3 class="text-slate-600 font-semibold text-lg">Sin resultados</h3>
+    <p class="text-slate-400 text-sm">Intenta ajustar los filtros de búsqueda</p>
+    <button
+      @click="resetFilters()"
+      class="mt-2 flex items-center gap-2 px-4 py-2 border border-teal-500 text-teal-600 hover:bg-teal-50 rounded-xl text-sm font-medium transition-colors bg-transparent cursor-pointer"
+    >
+      <!-- Refresh-CW icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
+      </svg>
+      Limpiar filtros
+    </button>
+  </div>
+
+  <!-- Grid de casas -->
+  <div
+    x-show="filteredCount > 0"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+  >
+    <template x-for="casa in filtered" :key="casa.id">
+      <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100 hover:-translate-y-1 flex flex-col w-full">
+        <!-- Imagen -->
+        <div class="relative overflow-hidden">
+          <img
+            :src="casa.imagen || casa.url_imagen"
+            :alt="casa.modelo"
+            class="w-full object-cover"
+            style="height:210px;"
+            loading="lazy"
+          />
+          <!-- Badge DISPONIBLE -->
+          <div class="absolute top-3 left-3">
+            <span class="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">DISPONIBLE</span>
+          </div>
+          <!-- Badge ID -->
+          <div class="absolute top-3 right-3">
+            <span class="bg-black/50 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm" x-text="'#' + casa.id"></span>
+          </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="flex flex-col gap-4 p-4 w-full items-start flex-1">
+          <!-- Nombre -->
+          <h3 class="text-base font-bold text-slate-800" x-text="casa.modelo"></h3>
+
+          <!-- Specs -->
+          <div class="flex items-center justify-center gap-4 bg-slate-50 rounded-xl px-3 py-2.5 w-full border border-slate-100">
+            <!-- Superficie -->
+            <div class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4Z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/><path d="m4.5 13.5 2 2"/></svg>
+              <span class="text-xs font-semibold text-slate-600" x-text="casa.superficie_m2 + 'm²'"></span>
+            </div>
+            <!-- Dormitorios -->
+            <div class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+              <span class="text-xs font-semibold text-slate-600" x-text="casa.dormitorios + ' dorm'"></span>
+            </div>
+            <!-- Baños -->
+            <div class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" x2="8" y1="5" y2="7"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="7" x2="7" y1="19" y2="21"/><line x1="17" x2="17" y1="19" y2="21"/></svg>
+              <span class="text-xs font-semibold text-slate-600" x-text="casa.banos + ' baños'"></span>
+            </div>
+          </div>
+
+          <!-- Precio -->
+          <div class="flex flex-col gap-1 items-start w-full">
+            <span class="text-xs text-slate-400 uppercase tracking-widest">Precio</span>
+            <span class="text-2xl font-bold text-teal-600" x-text="casa.precio_texto"></span>
+          </div>
+        </div>
+
+        <!-- Botón Ver Detalles -->
+        <div class="px-4 pb-4 w-full">
+          <a :href="`/casa/${casa.id}`" class="no-underline w-full block">
+            <button class="flex items-center justify-center gap-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all duration-200 w-full py-2 border-0 cursor-pointer">
+              <!-- Eye icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              Ver Detalles
+            </button>
+          </a>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<script define:vars={{ casasJson }}>
+  // Estado del catálogo — equivalente al State en Reflex
+  function catalogState(casas) {
+    return {
+      casas: casas,
+      search: '',
+
+      get filtered() {
+        const term = this.search.toLowerCase().trim();
+        if (!term) return this.casas;
+        return this.casas.filter(c =>
+          String(c.id).includes(term) ||
+          c.modelo.toLowerCase().includes(term) ||
+          c.descripcion.toLowerCase().includes(term)
+        );
+      },
+
+      get filteredCount() {
+        return this.filtered.length;
+      },
+
+      resetFilters() {
+        this.search = '';
+      },
+    };
+  }
+
+  // Exponer globalmente para Alpine.js
+  window.catalogState = catalogState;
+</script>

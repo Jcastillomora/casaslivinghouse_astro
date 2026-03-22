@@ -1,57 +1,6 @@
-# Dependencias
-node_modules/
-.pnp
-.pnp.js
-
-# Build
 dist/
-.astro/
-.vercel/
-.netlify/
-
-# Env
+node_modules/
 .env
-.env.local
-.env.production
-.env.development
-
-# Sistema
+.env.*
+!.env.example
 .DS_Store
-Thumbs.db
-*.log
-
-# Editor
-.vscode/
-.idea/
-*.swp
-
-# ─────────────────────────────────────────────
-# ASSETS PRIVADOS — no subir al repositorio
-# Copiar manualmente al servidor o Cloudflare R2
-# ─────────────────────────────────────────────
-
-# Imágenes del hero y carousel
-public/assets/foto_hero*.jpg
-public/assets/foto_hero*.webp
-public/assets/foto_carousel*.jpg
-public/assets/foto_carousel*.webp
-
-# Fotos de modelos de casas
-public/assets/foto_modelo*.jpg
-public/assets/foto_modelo*.webp
-public/assets/foto_modelo*.png
-public/assets/plano_modelo*.jpg
-public/assets/plano_modelo*.pdf
-
-# Fotos del equipo
-public/assets/foto_equipo*.jpg
-public/assets/foto_equipo*.jpeg
-public/assets/foto_equipo*.webp
-
-# Videos testimoniales
-public/assets/video_testimonio*.mp4
-public/assets/video_testimonio*.webm
-
-# Permitir el placeholder y README de assets
-!public/assets/.gitkeep
-!public/assets/README.md

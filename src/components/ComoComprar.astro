@@ -1,89 +1,90 @@
 ---
-const pasos = [
+// Proceso de compra — replica exacta de como_comprar.py
+const PASOS = [
   {
-    num: '01',
-    titulo: 'Elige tu modelo',
-    desc: 'Explora nuestro catálogo y selecciona la vivienda que mejor se adapta a tu familia y terreno.',
-    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    numero: "01",
+    titulo: "Elige tu modelo",
+    descripcion: "Navega por nuestro catálogo y elige el modelo que se adapta a tu terreno y presupuesto.",
+    icono: "home",
   },
   {
-    num: '02',
-    titulo: 'Solicita cotización',
-    desc: 'Contáctanos por WhatsApp o formulario. Te respondemos en menos de 24 horas con una propuesta detallada.',
-    icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
+    numero: "02",
+    titulo: "Solicita tu cotización",
+    descripcion: "Te enviamos una cotización detallada con precios, plazos y opciones de financiamiento.",
+    icono: "file-text",
   },
   {
-    num: '03',
-    titulo: 'Firma el contrato',
-    desc: 'Revisamos juntos los planos y especificaciones. Firmamos el contrato con plazos y condiciones claras.',
-    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+    numero: "03",
+    titulo: "Firmamos el contrato",
+    descripcion: "Acordamos los términos comerciales y firmamos el contrato de compraventa con garantías.",
+    icono: "file-check",
   },
   {
-    num: '04',
-    titulo: 'Entrega en tu terreno',
-    desc: 'Fabricamos y montamos tu vivienda en el plazo acordado. Supervisión técnica incluida en todo el proceso.',
-    icon: 'M5 13l4 4L19 7',
+    numero: "04",
+    titulo: "Fabricamos tu kit",
+    descripcion: "Iniciamos la fabricación de los paneles y la estructura de tu futura vivienda.",
+    icono: "hammer",
   },
-]
+  {
+    numero: "05",
+    titulo: "Despachamos a tu terreno",
+    descripcion: "Coordinamos el despacho de todos los materiales directamente a tu propiedad.",
+    icono: "truck",
+  },
+  {
+    numero: "06",
+    titulo: "Montamos tu hogar si contratas también este servicio adicional.",
+    descripcion: "Nuestro equipo realiza el montaje y en pocas semanas tienes tu casa lista para vivir.",
+    icono: "key",
+  },
+];
 ---
 
-<section id="como-comprar" class="py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <div class="text-center mb-16">
-      <span class="text-brand-500 text-sm font-semibold tracking-widest uppercase">Proceso</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-stone-800 mt-2 mb-4">
-        ¿Cómo comprar?
+<!-- Cómo Comprar — replica exacta de como_comprar.py -->
+<div
+  class="w-full"
+  style="background: linear-gradient(180deg, #ffffff 0%, #f0fdfa 60%, #ccfbf1 100%);"
+>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+    <!-- Header -->
+    <div class="flex flex-col items-center gap-4 mb-14">
+      <span class="text-teal-600 text-xs font-bold uppercase tracking-widest">PROCESO DE COMPRA</span>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 text-center leading-tight">
+        ¿Cómo comprar tu casa?
       </h2>
-      <p class="text-stone-500 text-lg max-w-xl mx-auto">
-        Un proceso simple, transparente y acompañado en cada etapa.
+      <p class="text-slate-500 text-base text-center max-w-xl">
+        En 6 simples pasos puedes tener la casa de tus sueños.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {pasos.map((paso, i) => (
-        <div class="relative group">
-          <!-- Línea conectora -->
-          {i < pasos.length - 1 && (
-            <div class="hidden lg:block absolute top-8 left-full w-full h-px bg-brand-100 z-0 -translate-y-0.5" />
-          )}
-
-          <div class="relative z-10 flex flex-col items-start gap-4">
-            <!-- Número + ícono -->
-            <div class="relative">
-              <div class="w-16 h-16 bg-brand-50 border-2 border-brand-100 group-hover:border-brand-400 group-hover:bg-brand-500 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm">
-                <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={paso.icon} />
-                </svg>
-              </div>
-              <span class="absolute -top-2 -right-2 w-6 h-6 bg-brand-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow">
-                {i + 1}
-              </span>
+    <!-- Grid de pasos -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {PASOS.map(paso => (
+        <div class="relative p-6 bg-white rounded-2xl border border-teal-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 overflow-hidden">
+          <!-- Número decorativo de fondo -->
+          <span class="absolute top-3 right-4 text-6xl font-black text-teal-100 leading-none select-none pointer-events-none">
+            {paso.numero}
+          </span>
+          <!-- Contenido -->
+          <div class="flex flex-col gap-3 items-start">
+            <div class="p-3 bg-teal-50 rounded-xl w-fit">
+              <i data-lucide={paso.icono} class="w-5 h-5" style="color:#0d9488;width:22px;height:22px;"></i>
             </div>
-
-            <div>
-              <h3 class="font-display font-bold text-lg text-stone-800 mb-2">{paso.titulo}</h3>
-              <p class="text-stone-500 text-sm leading-relaxed">{paso.desc}</p>
-            </div>
+            <p class="text-slate-800 font-bold text-lg leading-snug">{paso.titulo}</p>
+            <p class="text-slate-500 text-sm leading-relaxed">{paso.descripcion}</p>
           </div>
         </div>
       ))}
     </div>
 
     <!-- CTA -->
-    <div class="mt-16 text-center">
-      <a
-        href="https://wa.me/56930754516?text=Hola, quiero iniciar el proceso de compra de una vivienda prefabricada"
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-3 px-8 py-4 bg-brand-500 hover:bg-brand-400 text-white font-semibold rounded-xl shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
-      >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.126.554 4.12 1.525 5.855L.057 23.882l6.174-1.618A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.213-3.664.961.977-3.563-.234-.376A9.818 9.818 0 1112 21.818z"/>
-        </svg>
-        Iniciar proceso ahora
+    <div class="flex justify-center mt-12">
+      <a href="https://wa.me/56930754516" target="_blank" rel="noopener noreferrer" class="no-underline">
+        <button class="flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-teal-500/20 border-0 cursor-pointer">
+          <i data-lucide="message-circle" class="w-4 h-4" style="width:16px;height:16px;"></i>
+          Iniciar el proceso por WhatsApp
+        </button>
       </a>
     </div>
-
   </div>
-</section>
+</div>

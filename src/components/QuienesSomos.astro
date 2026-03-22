@@ -1,79 +1,114 @@
 ---
-import equipo from '../data/equipo.json'
+// Datos del equipo — replica exacta de quienes_somos.py
+const TEAM = [
+  {
+    nombre: "Alexander Sáez Jorquera",
+    cargo: ["CEO", "Abogado"],
+    imagen: "/Alexander Saez.jpeg",
+    linkedin: "https://www.linkedin.com/in/alexander-s%C3%A1ez-jorquera-865b34149/",
+    whatsapp: "https://wa.me/56930754516",
+    descripcion: [
+      "Su CEO fue asesor jurídico en el Ministerio de Obras Públicas, y en el Departamento de Recursos Físicos encargado de las obras de construcción del Ministerio de Salud.",
+      "En el ámbito privado, también ha estado vinculado al mercado inmobiliario y en cooperativas para la vivienda, logrando experiencia tanto en materia de inversión inmobiliaria y construcción.",
+      "También cuenta con experiencia en el área de la docencia como profesor de Derecho Inmobiliario, formando y preparando agentes inmobiliarios a lo largo de Chile.",
+    ],
+  },
+  {
+    nombre: "Juan Carlos García",
+    cargo: ["Agente Inmobiliario", "Post Venta y Cobranza"],
+    imagen: "/Juan Carlos Garcia.jpeg",
+    linkedin: "https://www.linkedin.com",
+    whatsapp: "https://wa.me/56962822333",
+    descripcion: [
+      "Nuestro Agente Inmobiliario tiene experiencia como corredor de propiedades, asesor de inversión inmobiliaria, marketing digital, manejo de Post Venta y Técnico Jurídico con vasta experiencia en el área de cobranza y recuperos.",
+    ],
+  },
+];
 ---
 
-<section id="quienes-somos" class="py-24 bg-stone-800 text-white">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-      <!-- Texto -->
-      <div>
-        <span class="text-brand-400 text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold mt-2 mb-6 leading-tight">
-          Construimos hogares<br/>
-          <span class="text-brand-400">desde el sur</span>
-        </h2>
-        <p class="text-stone-300 text-lg leading-relaxed mb-6">
-          Somos una empresa familiar del centro-sur de Chile con más de 15 años de experiencia
-          en viviendas prefabricadas. Conocemos el clima, la geografía y las necesidades
-          reales de las familias de nuestra región.
+<!-- Quiénes Somos — replica exacta de quienes_somos.py -->
+<div
+  class="w-full"
+  style="background: linear-gradient(180deg, #ffffff 0%, #f0fdfa 50%, #ccfbf1 100%);"
+>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+    <!-- Encabezado -->
+    <div class="flex flex-col items-center gap-4 mb-16">
+      <span class="text-teal-600 text-xs font-bold uppercase tracking-widest">QUIÉNES SOMOS</span>
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-900 text-center leading-tight">
+        Conoce nuestro equipo
+      </h2>
+      <div class="max-w-2xl">
+        <p class="text-slate-600 text-center leading-relaxed">
+          Somos una empresa del centro sur de Chile dedicada al desarrollo inmobiliario y al apoyo de las familias para conseguir el sueño de la casa propia, de la segunda vivienda o para la creación de proyectos turísticos donde la construcción de viviendas de calidad es nuestra mayor preocupación.
         </p>
-        <p class="text-stone-400 leading-relaxed mb-8">
-          Cada vivienda se fabrica con materiales de alta durabilidad pensados para resistir
-          las lluvias y temperaturas del sur. Trabajamos con proveedores locales y entregamos
-          con garantía de construcción.
+        <p class="text-slate-600 text-center leading-relaxed mt-4">
+          Somos una empresa que nace para aportar al cumplimiento de los sueños de sus clientes, en base a la experiencia de su equipo directivo y de sus colaboradores. Su equipo cuenta con vasta experiencia en el sector público y privado.
         </p>
-
-        <!-- Valores -->
-        <div class="grid grid-cols-2 gap-4">
-          {[
-            { icon: '🏆', label: 'Calidad certificada' },
-            { icon: '⚡', label: 'Entrega rápida' },
-            { icon: '🤝', label: 'Trato directo' },
-            { icon: '🌿', label: 'Materiales locales' },
-          ].map(v => (
-            <div class="flex items-center gap-3 bg-stone-700/50 rounded-xl px-4 py-3">
-              <span class="text-xl">{v.icon}</span>
-              <span class="text-sm font-medium text-stone-200">{v.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- Equipo -->
-      <div class="flex flex-col gap-6">
-        <h3 class="text-lg font-semibold text-stone-300">Nuestro equipo</h3>
-        {equipo.map(persona => (
-          <div class="flex items-center gap-5 bg-stone-700/40 border border-stone-600/40 rounded-2xl p-5 hover:bg-stone-700/60 transition-colors">
-            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-stone-600">
-              <img
-                src={persona.foto}
-                alt={persona.nombre}
-                class="w-full h-full object-cover"
-                loading="lazy"
-                onerror="this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-2xl\'>👤</div>'"
-              />
-            </div>
-            <div>
-              <div class="font-display font-bold text-white">{persona.nombre}</div>
-              <div class="text-brand-400 text-sm font-medium mb-1">{persona.cargo}</div>
-              <div class="text-stone-400 text-sm leading-snug">{persona.descripcion}</div>
-            </div>
-          </div>
-        ))}
-
-        <!-- Foto empresa -->
-        <div class="rounded-2xl overflow-hidden aspect-video bg-stone-700">
-          <img
-            src="/assets/foto_hero1.jpg"
-            alt="Casas Living House"
-            class="w-full h-full object-cover opacity-80"
-            loading="lazy"
-          />
+        <div class="flex justify-center mt-3">
+          <span class="text-teal-700 text-center font-semibold text-sm">
+            Su equipo cuenta con basta experiencia en el sector público y privado.
+          </span>
         </div>
       </div>
     </div>
 
+    <!-- Tarjetas del equipo -->
+    <div class="flex flex-col sm:flex-row items-start justify-center gap-16 md:gap-20">
+      {TEAM.map(member => (
+        <div class="flex flex-col items-center gap-5">
+          <!-- Foto circular con efectos -->
+          <div
+            class="relative w-52 h-52 md:w-64 md:h-64 rounded-full overflow-hidden"
+            style="box-shadow: 0 0 0 4px rgba(20,184,166,0.4), 0 16px 48px rgba(20,184,166,0.15);"
+          >
+            <img
+              src={member.imagen}
+              alt={member.nombre}
+              class="w-full h-full object-cover"
+              style="object-position: center 8%; filter: brightness(0.95) contrast(1.08) saturate(1.15);"
+            />
+            <!-- Overlay teal sutil -->
+            <div
+              class="absolute inset-0 rounded-full pointer-events-none"
+              style="background: linear-gradient(135deg, rgba(20,184,166,0.12) 0%, rgba(13,148,136,0.08) 100%); mix-blend-mode: overlay;"
+            ></div>
+            <div
+              class="absolute inset-0 rounded-full pointer-events-none"
+              style="background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 50%);"
+            ></div>
+          </div>
+
+          <!-- Nombre y cargo -->
+          <div class="flex flex-col items-center gap-1">
+            <p class="text-slate-900 text-xl font-bold text-center">{member.nombre}</p>
+            {member.cargo.map(c => (
+              <p class="text-teal-600 text-sm font-semibold text-center tracking-wide">{c}</p>
+            ))}
+          </div>
+
+          <!-- Descripción -->
+          <div class="flex flex-col items-center gap-3 max-w-sm">
+            {member.descripcion.map(p => (
+              <p class="text-slate-600 text-sm leading-relaxed text-center">{p}</p>
+            ))}
+          </div>
+
+          <!-- Iconos sociales -->
+          <div class="flex items-center gap-3">
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="no-underline">
+              <div class="p-2 rounded-lg border border-teal-200 hover:border-teal-500 hover:bg-teal-50 transition-all duration-200 cursor-pointer">
+                <i data-lucide="linkedin" class="w-4 h-4" style="color:#0d9488;width:18px;height:18px;"></i>
+              </div>
+            </a>
+            <a href={member.whatsapp} target="_blank" rel="noopener noreferrer" class="no-underline">
+              <div class="p-2 rounded-lg border border-teal-200 hover:border-teal-500 hover:bg-teal-50 transition-all duration-200 cursor-pointer">
+                <i data-lucide="message-circle" class="w-4 h-4" style="color:#0d9488;width:18px;height:18px;"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
   </div>
-</section>
+</div>

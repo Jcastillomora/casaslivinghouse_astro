@@ -1,108 +1,123 @@
 ---
-const links = [
-  { href: '#catalogo', label: 'Catálogo' },
-  { href: '#como-comprar', label: 'Cómo comprar' },
-  { href: '#quienes-somos', label: 'Nosotros' },
-  { href: '#contacto', label: 'Contacto' },
-]
 ---
-
-<header
-  id="navbar"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+<!-- Navbar — replica exacta de navbar.py -->
+<nav
+  x-data="{ open: false }"
+  style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 60%, #0f766e 100%);"
+  class="top-0 z-50 w-full px-4 py-3 border-b border-teal-700/30 shadow-lg"
 >
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+  <!-- ── Desktop ── -->
+  <div class="hidden md:flex items-center justify-between w-full px-4">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-3 group">
-      <div class="w-9 h-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-brand-400 transition-colors">
-        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-        </svg>
+    <div class="flex items-center gap-3">
+      <img
+        src="/casaslivinghouse.jpg"
+        alt="Casas Living House"
+        width="46"
+        height="46"
+        class="rounded-full object-cover ring-2 ring-white/40 shadow-md"
+        style="width:46px;height:46px;"
+      />
+      <div class="card_loader w-full text-center">
+        <div class="loader">
+          <span class="text-white font-bold" style="font-size:clamp(11px,1.8vw,17px);">Somos Casas Living House</span>
+          <div class="words">
+            <span class="word">Gracias a Dios</span>
+            <span class="word"></span>
+          </div>
+        </div>
       </div>
-      <span class="font-display font-bold text-lg text-white drop-shadow-sm">
-        Living House
-      </span>
+    </div>
+
+    <!-- Links -->
+    <div class="flex items-center gap-8">
+      <a href="/#inicio" class="flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-200 no-underline">
+        <i data-lucide="home" class="w-4 h-4"></i>
+        <span class="text-sm font-medium">Inicio</span>
+      </a>
+      <a href="/#nosotros" class="flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-200 no-underline">
+        <i data-lucide="users" class="w-4 h-4"></i>
+        <span class="text-sm font-medium">Nosotros</span>
+      </a>
+      <a href="/#modelos" class="flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-200 no-underline">
+        <i data-lucide="building-2" class="w-4 h-4"></i>
+        <span class="text-sm font-medium">Modelos</span>
+      </a>
+      <a href="/#contacto" class="flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-200 no-underline">
+        <i data-lucide="mail" class="w-4 h-4"></i>
+        <span class="text-sm font-medium">Contacto</span>
+      </a>
+    </div>
+
+    <!-- CTA -->
+    <a href="https://wa.me/56930754516" target="_blank" rel="noopener noreferrer" class="no-underline">
+      <button class="flex items-center gap-2 bg-white text-teal-700 hover:bg-teal-50 text-sm font-bold px-4 py-2 rounded-xl transition-all duration-200 shadow-md border-0 cursor-pointer">
+        <i data-lucide="phone" class="w-4 h-4"></i>
+        +56 9 3075 4516
+      </button>
     </a>
-
-    <!-- Nav desktop -->
-    <nav class="hidden md:flex items-center gap-1">
-      {links.map(l => (
-        <a
-          href={l.href}
-          class="px-4 py-2 rounded-lg text-sm font-medium text-white/90 hover:text-white hover:bg-white/15 transition-all"
-        >
-          {l.label}
-        </a>
-      ))}
-      <a
-        href="https://wa.me/56930754516"
-        target="_blank"
-        rel="noopener"
-        class="ml-3 px-5 py-2.5 bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold rounded-lg shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5"
-      >
-        Cotizar ahora
-      </a>
-    </nav>
-
-    <!-- Hamburger mobile -->
-    <button
-      id="menu-btn"
-      class="md:hidden p-2 rounded-lg text-white hover:bg-white/15 transition-colors"
-      aria-label="Menú"
-    >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
   </div>
 
-  <!-- Mobile menu -->
-  <div
-    id="mobile-menu"
-    class="hidden md:hidden bg-stone-900/95 backdrop-blur-md border-t border-white/10"
-  >
-    <nav class="flex flex-col px-6 py-4 gap-1">
-      {links.map(l => (
-        <a
-          href={l.href}
-          class="mobile-link px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium transition-all"
-        >
-          {l.label}
-        </a>
-      ))}
-      <a
-        href="https://wa.me/56930754516"
-        target="_blank"
-        rel="noopener"
-        class="mt-2 px-5 py-3 bg-brand-500 text-white text-sm font-semibold rounded-lg text-center"
+  <!-- ── Mobile ── -->
+  <div class="md:hidden w-full">
+    <!-- Top bar -->
+    <div class="flex items-center justify-between w-full">
+      <div class="flex items-center gap-2">
+        <img
+          src="/casaslivinghouse.jpg"
+          alt="Casas Living House"
+          width="40"
+          height="40"
+          class="rounded-full object-cover ring-2 ring-white/40"
+          style="width:40px;height:40px;"
+        />
+        <div class="card_loader text-center">
+          <div class="loader">
+            <span class="text-white font-bold" style="font-size:clamp(11px,1.8vw,17px);">Somos Casas Living House</span>
+            <div class="words">
+              <span class="word">Gracias a Dios</span>
+              <span class="word"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Hamburger -->
+      <button
+        @click="open = !open"
+        class="p-2 rounded-lg hover:bg-white/15 transition-colors cursor-pointer border-0 bg-transparent"
+        aria-label="Menú"
       >
-        Cotizar por WhatsApp
+        <i x-show="!open" data-lucide="menu" class="w-5 h-5 text-white" style="color:white;"></i>
+        <i x-show="open" x-cloak data-lucide="x" class="w-5 h-5 text-white" style="color:white;"></i>
+      </button>
+    </div>
+
+    <!-- Dropdown -->
+    <div x-show="open" x-cloak class="w-full border-t border-teal-700/30 mt-1">
+      <a href="/#inicio" @click="open=false" class="flex items-center gap-3 py-3 px-6 border-b border-teal-700/30 hover:bg-teal-700/30 transition-colors text-white/90 hover:text-white no-underline">
+        <i data-lucide="home" class="w-5 h-5"></i>
+        <span class="text-base font-medium">Inicio</span>
       </a>
-    </nav>
+      <a href="/#nosotros" @click="open=false" class="flex items-center gap-3 py-3 px-6 border-b border-teal-700/30 hover:bg-teal-700/30 transition-colors text-white/90 hover:text-white no-underline">
+        <i data-lucide="users" class="w-5 h-5"></i>
+        <span class="text-base font-medium">Nosotros</span>
+      </a>
+      <a href="/#modelos" @click="open=false" class="flex items-center gap-3 py-3 px-6 border-b border-teal-700/30 hover:bg-teal-700/30 transition-colors text-white/90 hover:text-white no-underline">
+        <i data-lucide="building-2" class="w-5 h-5"></i>
+        <span class="text-base font-medium">Modelos</span>
+      </a>
+      <a href="/#contacto" @click="open=false" class="flex items-center gap-3 py-3 px-6 border-b border-teal-700/30 hover:bg-teal-700/30 transition-colors text-white/90 hover:text-white no-underline">
+        <i data-lucide="mail" class="w-5 h-5"></i>
+        <span class="text-base font-medium">Contacto</span>
+      </a>
+      <a href="https://wa.me/56930754516" target="_blank" rel="noopener noreferrer" @click="open=false" class="flex items-center gap-3 py-3 px-6 hover:bg-teal-700/30 transition-colors text-white/90 hover:text-white no-underline">
+        <i data-lucide="phone" class="w-5 h-5"></i>
+        <span class="text-base font-medium">+56 9 3075 4516</span>
+      </a>
+    </div>
   </div>
-</header>
+</nav>
 
-<script>
-  const navbar  = document.getElementById('navbar')!
-  const menuBtn = document.getElementById('menu-btn')!
-  const mobileMenu = document.getElementById('mobile-menu')!
-
-  // Scroll: fondo sólido al bajar
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-      navbar.classList.add('bg-stone-900/95', 'backdrop-blur-md', 'shadow-lg')
-    } else {
-      navbar.classList.remove('bg-stone-900/95', 'backdrop-blur-md', 'shadow-lg')
-    }
-  })
-
-  // Mobile toggle
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden')
-  })
-
-  // Cerrar al hacer click en link
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => mobileMenu.classList.add('hidden'))
-  })
-</script>
+<style>
+  a { text-decoration: none; }
+</style>

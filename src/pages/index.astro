@@ -1,22 +1,44 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Navbar from '../components/Navbar.astro'
-import Hero from '../components/Hero.astro'
-import Catalogo from '../components/Catalogo.astro'
-import ComoComprar from '../components/ComoComprar.astro'
-import QuienesSomos from '../components/QuienesSomos.astro'
-import Testimonios from '../components/Testimonios.astro'
-import Footer from '../components/Footer.astro'
-import Whatsapp from '../components/Whatsapp.astro'
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import HeroSection from '../components/HeroSection.astro';
+import QuienesSomos from '../components/QuienesSomos.astro';
+import Testimonios from '../components/Testimonios.astro';
+import ProductosCredito from '../components/ProductosCredito.astro';
+import ComoComprar from '../components/ComoComprar.astro';
+import CatalogSection from '../components/CatalogSection.astro';
+import Footer from '../components/Footer.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import { getCasas } from '../lib/casas';
+
+const casas = getCasas();
 ---
 
-<Layout>
+<Layout
+  title="Casas Prefabricadas Chile | Living House — Financiamiento Directo"
+  description="Catálogo de casas prefabricadas con financiamiento directo, con o sin DICOM. Modelos desde 36m² hasta 150m². Entrega a todo Chile."
+>
   <Navbar />
-  <Hero />
-  <Catalogo />
-  <ComoComprar />
+
+  <div id="inicio">
+    <HeroSection />
+  </div>
+
+  <div id="nosotros">
+    <QuienesSomos />
+  </div>
+
   <Testimonios />
-  <QuienesSomos />
-  <Footer />
-  <Whatsapp />
+  <ProductosCredito />
+  <ComoComprar />
+
+  <div id="modelos">
+    <CatalogSection casas={casas} />
+  </div>
+
+  <div id="contacto">
+    <Footer />
+  </div>
+
+  <WhatsApp />
 </Layout>

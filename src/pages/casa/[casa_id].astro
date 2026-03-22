@@ -1,0 +1,290 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsApp from '../../components/WhatsApp.astro';
+import { getCasas } from '../../lib/casas';
+import type { Casa } from '../../lib/casas';
+
+export async function getStaticPaths() {
+  const casas = getCasas();
+  return casas.map(casa => ({
+    params: { casa_id: String(casa.id) },
+    props: { casa },
+  }));
+}
+
+interface Props {
+  casa: Casa;
+}
+
+const { casa } = Astro.props;
+
+// Contenido estático del Kit Inicial — replica exacta de casa_detail.py
+const KIT_INCLUYE = [
+  {
+    titulo: "TECHUMBRE",
+    bullets: [
+      "Un kit básico o inicial incluye zinc en 0,35 mm de espesor en diferentes medidas según requiera el modelo, caballetes de 40 cm de anchura y costaneras en 2x2 a 80 cm entre unas y otras. Además, fieltro asfáltico 10/40 en rollos como aislante de humedad. (los lima hoyas se incluyen en los modelos que lo requieran)",
+    ],
+  },
+  {
+    titulo: "CERCHAS",
+    bullets: [
+      'Cerchas en tabla de 1x5" con un espaciamiento de 1,0 mt entre una y otra.',
+    ],
+  },
+  {
+    titulo: "PANELES INTERIORES",
+    bullets: [
+      "Paneles interiores en madera de 2x3, con pie derecho a 60 cm a eje y triple cadeneta altura de 2,42 mt.",
+    ],
+  },
+  {
+    titulo: "PANELEX EXTERIORES",
+    bullets: [
+      "Paneles exteriores en madera de 2x3, con pie derecho a 60 cm a eje y triple cadeneta, fieltro asfáltico 10/40 como aislante de humedad y tinglado seco en cámara de 1x5 o 1x6.",
+    ],
+  },
+  {
+    titulo: "EXTRAS",
+    bullets: [
+      "Tablas cepilladas de 1x4 en 2,5 mt para la unión entre paneles y sus encuentros.",
+      "Perfil corta gotera galvanizado para inicio de panel.",
+    ],
+  },
+];
+
+const KIT_NO_INCLUYE = [
+  "No incluye piso, puertas ni ventanas.",
+  "No incluye forro por ninguna de sus caras en los paneles interiores.",
+  "No incluye ningún tipo de aislante térmico.",
+  "No incluye ningún tipo de tornillo o clavo.",
+  "No incluye aleros ni tapacanes.",
+];
+
+const KIT_ADICIONAL = [
+  'Kit de ventanas (línea 15, incluye premarcos cepillados en tabla de 1x4")',
+  "Kit de puertas (interior en terciado de 70 cm, exterior en pino o pino Oregón 80cm; incluye todos los marcos, no incluye chapas ni bisagras)",
+  "Kit de piso (apoyos cemento 30 cm cada 1,5 mt, envigado 2x5 y 2x4, terciado estructural 18mm, fieltro, fijaciones)",
+  "Kit de cierre de aleros (tapacanes 1x8 y 1x4, listones 1x3 bruto, cortes de tinglado + 38 cm., fijaciones)",
+];
+
+const imageSrc = casa.imagen || casa.url_imagen;
+---
+
+<Layout
+  title={`${casa.modelo} | Casas Living House`}
+  description={`Ficha técnica completa del modelo ${casa.modelo}: ${casa.superficie_m2}m², ${casa.dormitorios} dormitorios, precio ${casa.precio_texto}. Financiamiento directo disponible con o sin DICOM.`}
+>
+  <Navbar />
+
+  <!-- Back bar — breadcrumb -->
+  <div id="detalle" class="w-full bg-white border-b border-slate-100 py-3">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+      <a href="/#modelos" class="flex items-center gap-2 no-underline group">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-slate-500" style="color:#475569;width:16px;height:16px;"></i>
+        <span class="text-sm text-slate-600 group-hover:text-teal-600 transition-colors font-medium">Volver al catálogo</span>
+      </a>
+      <div class="flex items-center gap-1">
+        <i data-lucide="home" class="w-3 h-3 text-slate-400" style="color:#94a3b8;width:13px;height:13px;"></i>
+        <span class="text-xs text-slate-400">/</span>
+        <span class="text-xs text-slate-500 truncate max-w-xs">{casa.modelo}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero del detalle -->
+  <div class="w-full bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-start gap-0 py-10">
+      <!-- Imagen principal -->
+      <div class="relative w-full md:w-3/5 h-72 md:min-h-96 rounded-2xl overflow-hidden shadow-xl flex-shrink-0">
+        <img
+          src={imageSrc}
+          alt={casa.modelo}
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <div class="absolute top-4 left-4">
+          <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">DISPONIBLE</span>
+        </div>
+      </div>
+
+      <!-- Panel de información -->
+      <div class="flex-1 pt-6 md:pt-0 md:pl-8">
+        <!-- Nombre y ID -->
+        <div class="mb-5">
+          <h1 class="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">{casa.modelo}</h1>
+          <div class="flex items-center gap-1 mt-1">
+            <i data-lucide="hash" class="w-3.5 h-3.5 text-teal-600" style="color:#14b8a6;width:14px;height:14px;"></i>
+            <span class="text-sm text-teal-700 font-semibold">Modelo {casa.id}</span>
+          </div>
+        </div>
+
+        <!-- Precio -->
+        <div class="mb-5">
+          <p class="text-xs text-slate-400 uppercase tracking-widest font-medium">Precio</p>
+          <p class="text-4xl font-bold text-teal-600">{casa.precio_texto}</p>
+        </div>
+
+        <!-- Specs -->
+        <div class="flex items-center flex-wrap gap-y-2 gap-3 bg-slate-50 rounded-xl px-4 py-3 border border-slate-100 mb-5">
+          <div class="flex items-center gap-1">
+            <i data-lucide="ruler" class="w-4 h-4" style="color:#14b8a6;width:15px;height:15px;"></i>
+            <span class="text-sm font-semibold text-slate-700">{casa.superficie_m2}</span>
+            <span class="text-sm font-semibold text-slate-700">m²</span>
+          </div>
+          <div class="w-px h-4 bg-slate-200"></div>
+          <div class="flex items-center gap-1">
+            <i data-lucide="bed" class="w-4 h-4" style="color:#14b8a6;width:15px;height:15px;"></i>
+            <span class="text-sm font-semibold text-slate-700">{casa.dormitorios}</span>
+            <span class="text-sm font-semibold text-slate-700">dorm.</span>
+          </div>
+          <div class="w-px h-4 bg-slate-200"></div>
+          <div class="flex items-center gap-1">
+            <i data-lucide="bath" class="w-4 h-4" style="color:#14b8a6;width:15px;height:15px;"></i>
+            <span class="text-sm font-semibold text-slate-700">{casa.banos}</span>
+            <span class="text-sm font-semibold text-slate-700">baños</span>
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <p class="text-slate-600 leading-relaxed text-sm md:text-base mb-6">{casa.descripcion}</p>
+
+        <!-- Botones de acción -->
+        <div class="flex flex-row items-center gap-4 flex-wrap mt-2">
+          <a href="https://wa.me/56930754516" target="_blank" rel="noopener noreferrer" class="no-underline">
+            <button class="flex items-center gap-2 bg-teal-500 hover:bg-teal-600 text-white font-semibold text-sm rounded-xl px-6 py-3 transition-all duration-200 shadow-md border-0 cursor-pointer">
+              <i data-lucide="message-circle" class="w-4 h-4" style="width:16px;height:16px;"></i>
+              Consultar por WhatsApp
+            </button>
+          </a>
+          {casa.plano && (
+            <a href={casa.plano} target="_blank" rel="noopener noreferrer" class="no-underline">
+              <button class="flex items-center gap-2 bg-white border border-slate-300 hover:border-teal-500 hover:bg-teal-50 text-slate-700 hover:text-teal-700 font-semibold text-sm rounded-xl px-6 py-3 transition-all duration-200 cursor-pointer">
+                <i data-lucide="file-text" class="w-4 h-4" style="width:16px;height:16px;"></i>
+                Ver Plano PDF
+              </button>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kit Inicial -->
+  <div class="w-full bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-1 h-8 bg-teal-500 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-800">Información del Kit Inicial</h2>
+      </div>
+
+      <!-- Tarjeta principal: Incluye + No Incluye -->
+      <div class="rounded-2xl overflow-hidden shadow-sm border border-slate-200 mb-6">
+        <!-- Header de la tarjeta -->
+        <div class="bg-slate-100 border-b border-slate-200 px-6 py-4 text-center">
+          <div class="flex items-center gap-3 justify-center">
+            <i data-lucide="package" class="w-5 h-5 text-slate-900" style="color:#0f172a;width:20px;height:20px;"></i>
+            <h3 class="text-lg font-bold text-slate-900">¿Qué es un Kit Inicial?</h3>
+          </div>
+        </div>
+
+        <!-- Dos columnas: incluye | no incluye -->
+        <div class="flex flex-col md:flex-row">
+          <!-- Columna: ¿Qué incluye? -->
+          <div class="flex-1 border-b md:border-b-0 md:border-r border-slate-100 p-6 w-full">
+            <div class="flex items-center gap-2 pb-3 border-b border-slate-200 w-full mb-4">
+              <i data-lucide="check-circle-2" class="w-4 h-4" style="color:#14b8a6;width:16px;height:16px;"></i>
+              <span class="text-sm font-bold text-slate-700">¿Qué incluye un kit inicial?</span>
+            </div>
+            {KIT_INCLUYE.map(section => (
+              <div class="mb-4 w-full">
+                <p class="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">{section.titulo}</p>
+                <div class="flex flex-col gap-1 items-start w-full">
+                  {section.bullets.map(b => (
+                    <div class="flex items-start gap-2 w-full">
+                      <div class="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 bg-teal-500"></div>
+                      <p class="text-xs text-slate-600 leading-relaxed">{b}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Columna: ¿Qué NO incluye? -->
+          <div class="flex-1 p-6 w-full">
+            <div class="flex items-center gap-2 pb-3 border-b border-slate-200 w-full mb-4">
+              <i data-lucide="x-octagon" class="w-4 h-4" style="color:#ef4444;width:16px;height:16px;"></i>
+              <span class="text-sm font-bold text-red-600">¿Qué NO incluye?</span>
+            </div>
+            <div class="flex flex-col gap-3 items-start w-full">
+              {KIT_NO_INCLUYE.map(item => (
+                <div class="flex items-start gap-2 w-full">
+                  <i data-lucide="x-circle" class="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style="color:#ef4444;width:14px;height:14px;"></i>
+                  <p class="text-xs text-slate-600 leading-relaxed">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adicionales -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-2 pb-3 border-b border-slate-200 w-full mb-4">
+          <i data-lucide="plus-circle" class="w-4 h-4" style="color:#8b5cf6;width:16px;height:16px;"></i>
+          <span class="text-sm font-bold text-slate-700">¿Qué puedes agregar como ADICIONAL a tu Kit Inicial?</span>
+        </div>
+        <div class="flex flex-col gap-3 items-start w-full">
+          {KIT_ADICIONAL.map(item => (
+            <div class="flex items-start gap-2 w-full">
+              <div class="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 bg-gray-500"></div>
+              <p class="text-xs text-slate-600 leading-relaxed">{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Servicios adicionales -->
+      <div class="bg-blue-50 border border-blue-200 rounded-2xl px-5 py-4">
+        <div class="flex items-start gap-3">
+          <i data-lucide="wrench" class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#0369a1;width:16px;height:16px;"></i>
+          <p class="text-xs font-bold text-slate-700 uppercase tracking-wide leading-relaxed">
+            SERVICIOS ADICIONALES: INSTALACIÓN DE KIT Y CONSTRUCCIÓN DE RADIER O BASE EN APOYOS DE CEMENTO.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Contacto -->
+  <div class="w-full bg-gradient-to-r from-teal-600 to-teal-500">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex flex-col gap-2 items-start">
+          <h2 class="text-2xl font-bold text-white">¿Te interesa este modelo?</h2>
+          <p class="text-teal-100 text-sm">Cotiza ahora con financiamiento directo, con o sin DICOM.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 mt-4 md:mt-0">
+          <a href="https://wa.me/56930754516" target="_blank" rel="noopener noreferrer" class="no-underline">
+            <button class="flex items-center gap-2 bg-white text-teal-700 hover:bg-teal-50 font-bold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 text-sm border-0 cursor-pointer">
+              <i data-lucide="message-circle" class="w-4 h-4" style="color:#0f766e;width:18px;height:18px;"></i>
+              Consultar por WhatsApp
+            </button>
+          </a>
+          <a href="tel:+56930754516" class="no-underline">
+            <button class="flex items-center gap-2 border-2 border-white/50 text-white hover:bg-white/10 font-semibold px-5 py-3 rounded-xl transition-all duration-200 text-sm bg-transparent cursor-pointer">
+              <i data-lucide="phone" class="w-4 h-4" style="width:18px;height:18px;"></i>
+              +56 9 3075 4516
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+  <WhatsApp />
+</Layout>
