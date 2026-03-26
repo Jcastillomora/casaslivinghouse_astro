@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 ---
 <!-- Hero Section — replica exacta de hero_section.py -->
 <div class="w-full">
@@ -12,7 +13,7 @@
           <!-- Badge -->
           <div class="bg-teal-500/15 border border-teal-500/30 px-3 py-1.5 rounded-full w-fit">
             <div class="flex items-center gap-2">
-              <i data-lucide="home" class="w-3.5 h-3.5 text-teal-300" style="color:#5eead4;width:14px;height:14px;"></i>
+              <Icon name="lucide:home" class="text-teal-300" style="width:14px;height:14px;" />
               <span class="text-teal-300 text-sm font-medium">Casas Prefabricadas de Calidad</span>
             </div>
           </div>
@@ -30,7 +31,7 @@
 
           <!-- Christian message -->
           <div class="flex items-center gap-2">
-            <i data-lucide="heart" class="w-4 h-4" style="color:#5eead4;width:16px;height:16px;flex-shrink:0;"></i>
+            <Icon name="lucide:heart" style="color:#5eead4;width:16px;height:16px;flex-shrink:0;" />
             <span class="text-white/85 font-semibold text-sm md:text-base">
               Empresa de inspiración Cristiana somos confianza, somos realidad.
             </span>
@@ -41,12 +42,12 @@
             <a href="#modelos" class="no-underline">
               <button class="flex items-center gap-2 px-6 py-2.5 bg-teal-500 hover:bg-teal-400 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg shadow-teal-500/30 border-0 cursor-pointer text-base">
                 Ver Catálogo
-                <i data-lucide="arrow-right" class="w-4 h-4" style="width:17px;height:17px;"></i>
+                <Icon name="lucide:arrow-right" style="width:17px;height:17px;" />
               </button>
             </a>
             <a href="https://wa.me/56930754516" target="_blank" rel="noopener noreferrer" class="no-underline">
               <button class="flex items-center gap-2 px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-200 border border-white/20 cursor-pointer text-base">
-                <i data-lucide="message-circle" class="w-4 h-4" style="width:17px;height:17px;"></i>
+                <Icon name="lucide:message-circle" style="width:17px;height:17px;" />
                 Contáctanos
               </button>
             </a>
@@ -91,7 +92,7 @@
           <!-- Stat: modelos -->
           <div class="flex flex-row items-center gap-3">
             <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-purple-500/30">
-              <i data-lucide="building-2" class="w-5 h-5 text-white" style="color:white;width:22px;height:22px;"></i>
+              <Icon name="lucide:building-2" style="color:white;width:22px;height:22px;" />
             </div>
             <div>
               <p class="text-2xl md:text-3xl font-black text-white leading-none">20+</p>
@@ -102,7 +103,7 @@
           <!-- Stat: años -->
           <div class="flex flex-row items-center gap-3">
             <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-yellow-500/30">
-              <i data-lucide="calendar" class="w-5 h-5 text-white" style="color:white;width:22px;height:22px;"></i>
+              <Icon name="lucide:calendar" style="color:white;width:22px;height:22px;" />
             </div>
             <div>
               <p class="text-2xl md:text-3xl font-black text-white leading-none">5+</p>
@@ -113,7 +114,7 @@
           <!-- Stat: crédito -->
           <div class="flex flex-row items-center gap-3">
             <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-teal-500/30">
-              <i data-lucide="banknote" class="w-5 h-5 text-white" style="color:white;width:22px;height:22px;"></i>
+              <Icon name="lucide:banknote" style="color:white;width:22px;height:22px;" />
             </div>
             <div>
               <p class="text-2xl md:text-3xl font-black text-white leading-none">100%</p>
@@ -124,7 +125,7 @@
           <!-- Stat: sin DICOM -->
           <div class="flex flex-row items-center gap-3">
             <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-sky-500/30">
-              <i data-lucide="shield-check" class="w-5 h-5 text-white" style="color:white;width:22px;height:22px;"></i>
+              <Icon name="lucide:shield-check" style="color:white;width:22px;height:22px;" />
             </div>
             <div>
               <p class="text-2xl md:text-3xl font-black text-white leading-none">Sin DICOM</p>

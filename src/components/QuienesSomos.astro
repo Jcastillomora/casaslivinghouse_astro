@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 // Datos del equipo — replica exacta de quienes_somos.py
 const TEAM = [
   {
@@ -98,12 +100,12 @@ const TEAM = [
           <div class="flex items-center gap-3">
             <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="no-underline">
               <div class="p-2 rounded-lg border border-teal-200 hover:border-teal-500 hover:bg-teal-50 transition-all duration-200 cursor-pointer">
-                <i data-lucide="linkedin" class="w-4 h-4" style="color:#0d9488;width:18px;height:18px;"></i>
+                <Icon name="lucide:linkedin" style="color:#0d9488;width:18px;height:18px;" />
               </div>
             </a>
             <a href={member.whatsapp} target="_blank" rel="noopener noreferrer" class="no-underline">
               <div class="p-2 rounded-lg border border-teal-200 hover:border-teal-500 hover:bg-teal-50 transition-all duration-200 cursor-pointer">
-                <i data-lucide="message-circle" class="w-4 h-4" style="color:#0d9488;width:18px;height:18px;"></i>
+                <Icon name="lucide:message-circle" style="color:#0d9488;width:18px;height:18px;" />
               </div>
             </a>
           </div>

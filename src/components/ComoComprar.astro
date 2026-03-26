@@ -1,41 +1,43 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 // Proceso de compra — replica exacta de como_comprar.py
 const PASOS = [
   {
     numero: "01",
     titulo: "Elige tu modelo",
     descripcion: "Navega por nuestro catálogo y elige el modelo que se adapta a tu terreno y presupuesto.",
-    icono: "home",
+    icono: "lucide:home",
   },
   {
     numero: "02",
     titulo: "Solicita tu cotización",
     descripcion: "Te enviamos una cotización detallada con precios, plazos y opciones de financiamiento.",
-    icono: "file-text",
+    icono: "lucide:file-text",
   },
   {
     numero: "03",
     titulo: "Firmamos el contrato",
     descripcion: "Acordamos los términos comerciales y firmamos el contrato de compraventa con garantías.",
-    icono: "file-check",
+    icono: "lucide:file-check",
   },
   {
     numero: "04",
     titulo: "Fabricamos tu kit",
     descripcion: "Iniciamos la fabricación de los paneles y la estructura de tu futura vivienda.",
-    icono: "hammer",
+    icono: "lucide:hammer",
   },
   {
     numero: "05",
     titulo: "Despachamos a tu terreno",
     descripcion: "Coordinamos el despacho de todos los materiales directamente a tu propiedad.",
-    icono: "truck",
+    icono: "lucide:truck",
   },
   {
     numero: "06",
     titulo: "Montamos tu hogar si contratas también este servicio adicional.",
     descripcion: "Nuestro equipo realiza el montaje y en pocas semanas tienes tu casa lista para vivir.",
-    icono: "key",
+    icono: "lucide:key",
   },
 ];
 ---
@@ -68,7 +70,7 @@ const PASOS = [
           <!-- Contenido -->
           <div class="flex flex-col gap-3 items-start">
             <div class="p-3 bg-teal-50 rounded-xl w-fit">
-              <i data-lucide={paso.icono} class="w-5 h-5" style="color:#0d9488;width:22px;height:22px;"></i>
+              <Icon name={paso.icono} style="color:#0d9488;width:22px;height:22px;" />
             </div>
             <p class="text-slate-800 font-bold text-lg leading-snug">{paso.titulo}</p>
             <p class="text-slate-500 text-sm leading-relaxed">{paso.descripcion}</p>
@@ -81,7 +83,7 @@ const PASOS = [
     <div class="flex justify-center mt-12">
       <a href="https://wa.me/56930754516" target="_blank" rel="noopener noreferrer" class="no-underline">
         <button class="flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-teal-500/20 border-0 cursor-pointer">
-          <i data-lucide="message-circle" class="w-4 h-4" style="width:16px;height:16px;"></i>
+          <Icon name="lucide:message-circle" style="width:16px;height:16px;" />
           Iniciar el proceso por WhatsApp
         </button>
       </a>

@@ -48,14 +48,24 @@ export function getCasas(): Casa[] {
   }
 
   try {
-    const workbook = XLSX.readFile(excelPath);
+    const fileBuffer = fs.readFileSync(excelPath);
+    const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
     const sheet = workbook.Sheets['Hoja 1'];
     if (!sheet) {
       console.error('❌ No se encontró la hoja "Hoja 1"');
       return (_casas = []);
     }
 
-    const rows: Record<string, unknown>[] = XLSX.utils.sheet_to_json(sheet);
+    const rawRows: Record<string, unknown>[] = XLSX.utils.sheet_to_json(sheet);
+
+    // Normalizar nombres de columnas (eliminar espacios extra)
+    const rows = rawRows.map(row => {
+      const normalized: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(row)) {
+        normalized[key.trim()] = value;
+      }
+      return normalized;
+    });
 
     _casas = rows
       .filter(row => row['id'] !== undefined && row['id'] !== null && row['id'] !== '')
@@ -78,7 +88,7 @@ export function getCasas(): Casa[] {
           precio_texto: fmtPrecio(precio),
           descripcion: String(row['descripción'] || 'Sin descripción disponible'),
           imagen: String(row['imagen'] || ''),
-          url_imagen: String(row['url_imagen'] || '/casa_default.jpg'),
+          url_imagen: String(row['url_imagen'] || '/casaslivinghouse.jpg'),
           plano: String(row['plano'] || ''),
         } as Casa;
       })
